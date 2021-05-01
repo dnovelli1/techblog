@@ -17,12 +17,13 @@ router.get('/', async (req, res) => {
                 },
             ],
         });
-        const posts = postData.map((post) => project.get({ plain: true }));
+        const posts = postData.map((post) => post.get({ plain: true }));
         res.render('homepage', {
             posts,
             logged_in: req.session.logged_in
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -39,7 +40,7 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-router.get('/post/:id', (req, res) => {
+router.get('/post/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk({
             where: {
@@ -88,3 +89,5 @@ router.get('/dashboard', withAuth, async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+module.exports = router;

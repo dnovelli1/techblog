@@ -40,7 +40,11 @@
     <script src="/js/logout.js"></script>
     {{/if}}
 
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js">
+        $(document).ready(function () {
+            M.updateTextFields();
+        });
+    </script>
     <script src="./js/main.js"></script>
 </body>
 
