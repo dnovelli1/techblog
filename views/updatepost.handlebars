@@ -1,0 +1,22 @@
+
+<h2>Update Post</h2>
+    <form class="col 9 align-center">
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="editTitle" type="text" class="validate" value="{{post.title}}">
+                <label class="active" for="editTitle">Username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="postBody" type="text" class="validate" value="{{post.body}}">
+                <label class="active" for="postBody">Post Text</label>
+            </div>
+        </div>
+        <div>
+            <button class="btn waves-effect waves-light update" type="submit" name="action">Update<i class="material-icons right">send</i></button>
+            <button class="btn waves-effect waves-light delete" type="submit" name="action">Remove</button>
+        </div>
+        <script src="/js/edit-post.js"></script>
+        <script src="/js/delete-post.js"></script>
+    </form>

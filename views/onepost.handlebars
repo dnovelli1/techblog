@@ -1,0 +1,16 @@
+<div class="s12">
+    {{> postguide post}}
+
+    {{!-- {{#if logged_in}} --}}
+    <form class="comment-form s12">
+        <div class="card-header">
+            <textarea style="width:100%;padding:1.5%" name="commentBody"></textarea>
+        </div>
+        <div>
+            <button class="btn" type="submit">Add Comment</button>
+        </div>
+    </form>
+    {{!-- {{/if}} --}}
+    {{> comments post.comments}}
+    
+</div>

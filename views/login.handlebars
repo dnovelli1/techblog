@@ -1,19 +1,20 @@
-<form class="col 9 align-center">
+<form class="col9 login-form">
     <div class="row">
         <div class="input-field col s6">
-            <input id="first_name" type="text" class="validate">
-            <label class="active" for="first_name">First Name</label>
+            <input id="usernameLog" type="text" class="input"/>
+            <label class="active" for="usernameLog">Username</label>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s6">
-            <input id="password" type="text" class="validate">
-            <label class="active" for="password">Password</label>
+            <input id="passwordLog" type="text" class="input"/>
+            <label class="active" for="passwordLog">Password</label>
         </div>
     </div>
     <div>
-        <a class="waves-effect waves-light btn login" type="submit">Login</a>
+        <button class="waves-effect waves-light btn" type="submit">Login</button>
         <div class="signup"><a class="text" href="/signup">Not a Member? Click to Sign Up!</a></div>
     </div>
-    <script src="/js/login.js"></script>
 </form>
+
+<script src="/js/login.js"></script>

@@ -42,7 +42,7 @@ router.get('/signup', (req, res) => {
 
 router.get('/post/:id', async (req, res) => {
     try {
-        const postData = await Post.findByPk({
+        const postData = await Post.findOne({
             where: {
                 id: req.params.id,
             },
@@ -62,12 +62,13 @@ router.get('/post/:id', async (req, res) => {
             res.status(404).json({ message: 'No Post found by that ID!' });
             return;
         }
-        const posts = postData.get({ plain: true });
+        const post = postData.get({ plain: true });
         res.render('onepost', {
             post,
             logged_in: req.session.logged_in
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
