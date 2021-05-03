@@ -6,7 +6,7 @@
             <div class="card-content white-text">
                 <a href="/post/{{post.id}}">{{post.title}}</a>
                 <p class="creator">Made by: {{user.username}}</p>
-                <p>Created at: {{post.created_at}}</p>
+                <p>Created at: {{format_date post.createdAt}}</p>
             </div>
             <div class="card-action">
                 <p>{{post.body}}</p>
