@@ -2,26 +2,27 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// Finds all posts to render on the dashboard, with authorization
 router.get('/', withAuth, async (req, res) => {
     try {
         const postData = await Post.findAll({
             where: {
-                user_id: req.session.user_id,
+                user_id: req.session.user_id, // finds the posts where the user id matches the current session id
             },
             include: [
                 {
-                    model: Comment,
+                    model: Comment, //includes the comments associated to each post
                     include: {
-                        model: User
+                        model: User //includes the user associated to each comment
                     },
                 },
                 {
-                    model: User
+                    model: User //includes the user associated to the post
                 },
             ],
         })
         const posts = postData.map((post) => post.get({ plain: true }));
-        res.render('dashboard', {
+        res.render('dashboard', { //Renders the data on the dashoboard handlebar
             posts,
             logged_in: true,
         }
@@ -31,18 +32,19 @@ router.get('/', withAuth, async (req, res) => {
     }
 });
 
+// Takes the user to the specific post in order to edit the post
 router.get('/edit/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.findOne({
             where: {
-                id: req.params.id,
+                id: req.params.id, // Matches the post to the id requested
             },
             include: [
                 {
-                    model: User
+                    model: User //Includes the user associated to the post
                 },
                 {
-                    model: Comment,
+                    model: Comment, //Includes the comments associated to the post and the user associated to the comments
                     include: {
                         model: User,
                     },
@@ -50,7 +52,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
             ],
         })
         const post = postData.get({ plain: true });
-        res.render('updatepost', {
+        res.render('updatepost', { //Renders the data to the update post handlebar
             post,
             logged_in: true,
         });
@@ -59,6 +61,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
     }
 });
 
+// Takes the user to the createpost handlebar if they are logged in
 router.get('/createpost', withAuth, (req, res) => {
     res.render('create-post', {
         logged_in: true,
