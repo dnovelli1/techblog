@@ -11,17 +11,18 @@ router.get('/', async (req, res) => {
     }
 });
 
-
 router.post('/', withAuth, async (req, res) => {
+// router.post('/',  async (req, res) => {
     if (req.session) {
         try {
             const commentData = await Comment.create({
-                body: req.body.body,
+                comment_body: req.body.comment_body,
                 post_id: req.body.post_id,
                 user_id: req.session.user_id,
             })
             res.status(200).json(commentData);
         } catch (err) {
+            console.log(err);''
             res.status(500).json(err);
         };
     };

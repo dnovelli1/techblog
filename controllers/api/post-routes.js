@@ -51,10 +51,12 @@ router.get('/:id', async (req, res) => {
 router.post('/', withAuth, async (req, res) => {
     try {
         const data = req.body;
+        console.log(data);
         data.user_id = req.session.user_id;
         const postData = await Post.create(data);
         res.status(200).json(postData);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -78,11 +80,11 @@ router.put('/:id', withAuth, async (req, res) => {
 
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        const postData = await Post.update({
+        const postData = await Post.destroy({
             where: {
                 id: req.params.id
             },
-        })
+        });
         if (!postData) {
             res.status(404).json({ message: 'This Post does not exist' });
         }

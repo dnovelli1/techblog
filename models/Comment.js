@@ -16,7 +16,7 @@ Comment.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    body: {
+    comment_body: {
         type: DataTypes.STRING,
         allowNull: false,
     },

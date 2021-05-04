@@ -42,6 +42,9 @@
     {{/if}}
 
     <script type="text/javascript" src="js/materialize.min.js">
+        $(document).ready(function(){
+            $('.nav-mobile').sidenav();
+        });
         $(document).ready(function () {
             M.updateTextFields();
         });

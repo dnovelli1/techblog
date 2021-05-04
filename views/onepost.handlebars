@@ -1,16 +1,21 @@
-<div class="s12">
+<div class="container">
     {{> postguide post}}
 
     {{!-- {{#if logged_in}} --}}
-    <form class="comment-form s12">
-        <div class="card-header">
-            <textarea style="width:100%;padding:1.5%" name="commentBody"></textarea>
-        </div>
-        <div>
-            <button class="btn" type="submit">Add Comment</button>
+    <form class="new-comment">
+        <div class="card blue-grey darken-1">
+            <div class="row input-field">
+                <input id="commentText" type="text" class="input" />
+                <label class="active" for="commentText">Text</label>
+            </div>
+            <div class="row blue-grey darken-1">
+                <button class="waves-effect waves-light btn" type="submit">Add Comment</button>
+            </div>
         </div>
     </form>
+    <script src="/js/comment.js"></script>
     {{!-- {{/if}} --}}
     {{> comments post.comments}}
-    
+
 </div>
+
