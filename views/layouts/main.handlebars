@@ -14,7 +14,7 @@
     <header>
         <nav>
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo right">Blogathon</a>
+                <a href="/" class="brand-logo right">Blogathon</a>
                 {{#if logged_in}}
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="/">Home</a></li>
@@ -23,6 +23,7 @@
                 </ul>
                 {{else}}
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="/">Home</a></li>
                     <li><a href="/login">Login</a></li>
                 </ul>
                 {{/if}}
@@ -43,7 +44,7 @@
 
     <script type="text/javascript" src="js/materialize.min.js">
         $(document).ready(function(){
-            $('.nav-mobile').sidenav();
+            $('#nav-mobile').sidenav();
         });
         $(document).ready(function () {
             M.updateTextFields();

@@ -2,14 +2,15 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+// Find all posts in the db
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
             include: [
-                User,
+                User, //including the associated user on the posts
                 {
-                    model: Comment,
-                    include: [User],
+                    model: Comment, // Includes the comment of the post
+                    include: [User], // and the user associated to the comments
                 },
             ]
         });
@@ -19,20 +20,21 @@ router.get('/', async (req, res) => {
     }
 });
 
+//  find a specific post
 router.get('/:id', async (req, res) => {
     try {
         const postData = await Post.findOne({
             where: {
-                id: req.params.id,
+                id: req.params.id, // Finds the post with the specific id requested.
             },
             include: [
                 {
-                    model: User,
+                    model: User, // Includes the user associated to the post
                 },
                 {
-                    model: Comment,
+                    model: Comment, // Includes the comments associated to the post
                     include: {
-                        model: User,
+                        model: User, // Includes the user associated to the comments
                     },
                 },
             ]
@@ -48,12 +50,13 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Create a new post
 router.post('/', withAuth, async (req, res) => {
     try {
-        const data = req.body;
+        const data = req.body; //Takes the body of the post
         console.log(data);
-        data.user_id = req.session.user_id;
-        const postData = await Post.create(data);
+        data.user_id = req.session.user_id; // Sets the user id according to the session id
+        const postData = await Post.create(data); //Creates the post combining the body and associated user id
         res.status(200).json(postData);
     } catch (err) {
         console.log(err);
@@ -61,12 +64,12 @@ router.post('/', withAuth, async (req, res) => {
     }
 });
 
-
+// Updates the specific post
 router.put('/:id', withAuth, async (req, res) => {
     try {
-        const postData = await Post.update(req.body, {
-            where: {
-                id: req.params.id
+        const postData = await Post.update(req.body, { //updates the posts req.body
+            where: { 
+                id: req.params.id // Where the id matches the id requested
             },
         })
         if (!postData) {
@@ -78,11 +81,12 @@ router.put('/:id', withAuth, async (req, res) => {
     }
 });
 
+// Deleting a specific post
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        const postData = await Post.destroy({
+        const postData = await Post.destroy({ 
             where: {
-                id: req.params.id
+                id: req.params.id // where the id requested matches the id in the database
             },
         });
         if (!postData) {

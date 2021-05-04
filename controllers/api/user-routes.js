@@ -2,11 +2,12 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+// Finds all users
 router.get('/', async (req, res) => {
     try {
         const userData = await User.findAll({
             attributes: {
-                exclude: ['password'],
+                exclude: ['password'], //Excludes the password to avoid corruption
             },
         })
         res.status(200).json(userData);
@@ -15,28 +16,29 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Finds one user
 router.get('/:id', async (req, res) => {
     try {
         const userData = await User.findOne({
             attributes: {
-                exclude: ['password'],
+                exclude: ['password'], //Excludes the password to avoid corruption
             },
             where: {
-                id: req.params.id,
+                id: req.params.id, // where the id requested matches the id stored in the db
             },
             include: [
                 {
-                    model: Post,
+                    model: Post, //Includes the users associated posts
                 },
                 {
-                    model: Comment,
-                    include: {
+                    model: Comment, 
+                    include: { //includes the comments and user model associated to the comments
                         model: User,
                     },
                 },
             ],
         })
-        if (!userData) {
+        if (!userData) { // If no user exists
             res.status(400).json({ message: 'No data found by that ID!' });
             return;
         }
@@ -50,8 +52,8 @@ router.get('/:id', async (req, res) => {
 
 
 
-
-router.post('/', async (req, res) => {
+// 
+router.post('/', withAuth, async (req, res) => {
     try {
         const userData = await User.create({
             username: req.body.username,
